@@ -2,7 +2,7 @@
 getBooks("paris");
 
 function getBooks(place) {
-    let queryURL = /*"https://cors-anywhere.herokuapp.com/" + */ "https://www.goodreads.com/search.xml?key=Ftrxz5uVKXShxfHT69uvg&q=travel%20" + place;
+    let queryURL = "https://cors-anywhere.herokuapp.com/" + "https://www.goodreads.com/search.xml?key=Ftrxz5uVKXShxfHT69uvg&q=travel%20" + place;
 
     $.ajax({
         url: queryURL,
