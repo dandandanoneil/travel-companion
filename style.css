@@ -19,3 +19,9 @@ body {
   background-repeat: no-repeat;
   background-size: 100%;
 }
+
+/* For results.html */
+.nav-wrapper {
+  background-color: antiquewhite;
+  font-family: 'Lora', serif;
+}
