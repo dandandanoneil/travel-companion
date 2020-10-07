@@ -1,22 +1,37 @@
-// Function that accesses the GoodReads API given a string representing their place search
-getBooks("paris");
+// Get place from localStorage - if nothing's there, use Philadelphia
+let place = localStorage.getItem('place');
+if (!place) { place = "Philadelphia"; }
 
+// Run getBooks() to test it
+getBooks(place);
+
+// Function that accesses the GoodReads API given a string representing their place search
 function getBooks(place) {
     let queryURL = "https://cors-anywhere.herokuapp.com/" + "https://www.goodreads.com/search.xml?key=Ftrxz5uVKXShxfHT69uvg&q=travel%20" + place;
 
     $.ajax({
-        url: queryURL,
+		url: queryURL,
+		dataType: "text",
         method: "GET"
     }).then(function(xml) {
         // Code here
-        const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
-        const obj = xmlToJson(XmlNode);
-        const booksArray = obj.GoodreadsResponse.search.results.work
-        console.log(booksArray);
-        console.log(booksArray[0].best_book.title);
-        console.log(booksArray[0].best_book.author.name);
-        console.log(booksArray[0].best_book.image_url);
-        console.log(booksArray[0].original_publication_year);
+		// console.log(xml);
+		// console.log(typeof xml);
+		// console.log(JSON.stringify(xml));
+		const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
+		const results = xmlToJson(XmlNode).GoodreadsResponse.search.results.work;
+		let books = [];
+		// Iterate through the messy array and build a cleaner array of objects representing each book on the list
+		for (let i = 0; i < results.length; i++) {
+			let newBook = {
+				title: results[i].best_book.title["#text"],  
+				by: results[i].best_book.author.name["#text"], 
+				image: results[i].best_book.image_url["#text"], 
+				year: results[i].original_publication_year["#text"]};
+			if (!newBook.year) { newBook.year = "unknown"; }
+			books.push(newBook);
+		}
+		console.log(books);
     });
 }
 
