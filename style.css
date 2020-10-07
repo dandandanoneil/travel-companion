@@ -1,3 +1,26 @@
+/*Center the landing page card responsively*/
+#landingCard {
+box-shadow: 0 0 25px black;
+width: 500px;
+margin: 150px auto;
+background-color: #3e1409;
+border: groove;
+color:whitesmoke;
+text-align: center;
+}
+
+h3 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-image: url('https://cdn1.vectorstock.com/i/1000x1000/75/90/vintage-travel-visa-passport-stamps-vector-11097590.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+/* For results.html */
 .nav-wrapper {
   background-color: antiquewhite;
   font-family: 'Lora', serif;
