@@ -26,66 +26,81 @@
     <br>
 
   <div class="container">
+    <!-- Row 1: Content Cards -->
     <div class="row">
-      <div class="col m4 offset-m2 valign">
-        <div class="card large">
+      <!-- Books Card -->
+      <div class="col m3 valign">
+        <div class="card medium">
           <div class="card-image">
             <img src="./Assets/antique-books.jpg">
             <span class="card-title" style="width:100%; background: rgba(0, 0, 0, 0.5);">Books</span>
           </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+          <div id="book-preview" class="card-content">
+            <!-- script will load a few recs here -->
           </div>
           <div class="card-action">
-            <a href="#">Discover Books</a>
+            <a href="#" class="blue-text text-darken-2">Show Books</a>
           </div>
         </div>
       </div>
-      <div class="col m4">
-        <div class="card large">
+      <!-- Movies Card -->
+      <div class="col m3 valign">
+        <div class="card medium">
           <div class="card-image">
             <img src="./Assets/movie-tickets.jpg">
             <span class="card-title" style="width:100%; background: rgba(0, 0, 0, 0.5);">Movies</span>
           </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+          <div id="movie-preview" class="card-content">
+            <!-- script will load a few recs here -->
           </div>
           <div class="card-action">
-            <a href="#">Discover Movies</a>
+            <a href="#" class="blue-text text-darken-2">Show Movies</a>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col m4 offset-m2 valign">
-        <div class="card large">
+      <!-- Art Card -->
+      <div class="col m3 valign">
+        <div class="card medium">
           <div class="card-image">
             <img src="./Assets/antique-art.jpg">
             <span class="card-title" style="width:100%; background: rgba(0, 0, 0, 0.5);">Art</span>
           </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+          <div id="art-preview" class="card-content">
+            <!-- script will load a few recs here -->
           </div>
           <div class="card-action">
-            <a href="#">Discover Art</a>
+            <a href="#" class="blue-text text-darken-2">Show Art</a>
           </div>
         </div>
       </div>
-      <div class="col m4">
-        <div class="card large">
+      <!-- News Card -->
+      <div class="col m3 valign">
+        <div class="card medium">
           <div class="card-image">
             <img src="./Assets/antique-newspaper.jpg">
             <span class="card-title" style="width:100%; background: rgba(0, 0, 0, 0.5);">News</span>
           </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+          <div id="news-preview" class="card-content">
+            <!-- script will load a few recs here -->
           </div>
           <div class="card-action">
-            <a href="#">Discover News</a>
+            <a href="#" class="blue-text text-darken-2">Show News</a>
           </div>
         </div>
       </div>
+    </div>
+    <!-- Row 2: Results Card -->
+    <div class="row">
+      <div class="col m12 valign">
+        <!-- This card is hidden using the ".hide" class - when script.js loads results, this class will be removed -->
+        <div class="card blue-grey darken-1 hide"> 
+          <div class="card-content white-text">
+            <span id="results-header" class="card-title"><!-- script will add a header here --></span>
+            <div id="results-content">
+              <!-- script will append results here -->
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 
