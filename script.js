@@ -2,11 +2,10 @@
 let place = localStorage.getItem('place');
 if (!place) { place = "Philadelphia"; }
 
-// Run getBooks() to test it
-getBooks(place);
-getMovies(place);
+let booksArray = getBooks(place);
+let moviesArray = getMovies(place);
 
-// Function that accesses the GoodReads API given a string representing their place search
+// Function that accesses the GoodReads API given a string representing their place search, and returns an array of books object with only the key values we care about
 function getBooks(place) {
     let queryURL = "https://cors-anywhere.herokuapp.com/" + "https://www.goodreads.com/search.xml?key=Ftrxz5uVKXShxfHT69uvg&q=travel%20" + place;
 
@@ -29,10 +28,17 @@ function getBooks(place) {
 			books.push(newBook);
 		}
 		console.log(books);
-    });
+
+		// Add a few reccomendations from books to the books card content
+		for (let i = 0; i < 5; i++) {
+			let newDiv = $("<div>- " + books[i].title + "</div>");
+			$("#book-preview").append(newDiv);
+		}
+		return books;
+	});
 }
 
-// Function that accesses the Open Movie Database API given a string representing their place search
+// Function that accesses the Open Movie Database API given a string representing their place search, and returns an array of books object with only the key values we care about
 function getMovies(place) {
 	var queryURL = "https://www.omdbapi.com/?s=" + place + "&apikey=10b7e919";
 
@@ -52,6 +58,13 @@ function getMovies(place) {
 			movies.push(newMovie);
 		}
 		console.log(movies);
+	
+		// Add a few reccomendations from movies to the movies card content
+		for (let i = 0; i < 5; i++) {
+			let newDiv = $("<div>- " + movies[i].title + "</div>");
+			$("#movie-preview").append(newDiv);
+		}		
+		return movies;
     });
 }
 
