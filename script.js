@@ -35,6 +35,8 @@ function getBooks(place) {
 			let newDiv = $("<div>- " + books[i].title + "</div>");
 			$("#book-preview").append(newDiv);
 		}
+		// Unhide the "show results" link
+		$("#book-action").removeClass("hide");
 		return books;
 	});
 }
@@ -65,6 +67,8 @@ function getMovies(place) {
 			let newDiv = $("<div>- " + movies[i].title + "</div>");
 			$("#movie-preview").append(newDiv);
 		}		
+		// Unhide the "show results" link
+		$("#movie-action").removeClass("hide");
 		return movies;
     });
 }
@@ -79,7 +83,7 @@ function getNews(place) {
 	}).then(function(response) {
 		let results = response.response.docs;
 		let articles = [];
-		console.log(results);
+
 		// Iterate through the results array of objects representing news articles
 		for (let i = 0; i < results.length; i++) {
 			let newArticles = {
@@ -91,6 +95,15 @@ function getNews(place) {
 			articles.push(newArticles);
 		}
 		console.log(articles);
+
+		// Add a few reccomendations from articles to the news card content
+		for (let i = 0; i < 5; i++) {
+			let newDiv = $("<div>- " + articles[i].title + "</div>");
+			$("#news-preview").append(newDiv);
+		}
+		// Unhide the "show results" link
+		$("#news-action").removeClass("hide");
+		return articles;		
 	});
 }
 
