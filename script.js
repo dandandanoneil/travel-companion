@@ -4,8 +4,9 @@ if (!place) { place = "Philadelphia"; }
 
 let booksArray = getBooks(place);
 let moviesArray = getMovies(place);
+let newsArray = getNews(place);
 
-// Function that accesses the GoodReads API given a string representing their place search, and returns an array of books object with only the key values we care about
+// Function that accesses the GoodReads API given a string representing their place search, and returns an array of book objects with only the key values we care about
 function getBooks(place) {
     let queryURL = "https://cors-anywhere.herokuapp.com/" + "https://www.goodreads.com/search.xml?key=Ftrxz5uVKXShxfHT69uvg&q=travel%20" + place;
 
@@ -38,7 +39,7 @@ function getBooks(place) {
 	});
 }
 
-// Function that accesses the Open Movie Database API given a string representing their place search, and returns an array of books object with only the key values we care about
+// Function that accesses the Open Movie Database API given a string representing their place search, and returns an array of movie objects with only the key values we care about
 function getMovies(place) {
 	var queryURL = "https://www.omdbapi.com/?s=" + place + "&apikey=10b7e919";
 
@@ -66,6 +67,31 @@ function getMovies(place) {
 		}		
 		return movies;
     });
+}
+
+// Function that accesses the NYTimes API given a string representing their place search, and returns an array of article objects with only the key values we care about
+function getNews(place) {
+	var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=articles&fq=glocations:" + place + "&api-key=g3KFAz8SGDwQs4rxRmIrPbDPuhJbsmtG";
+
+	 $.ajax({
+		url: queryURL,
+		method: "GET"
+	}).then(function(response) {
+		let results = response.response.docs;
+		let articles = [];
+		console.log(results);
+		// Iterate through the results array of objects representing news articles
+		for (let i = 0; i < results.length; i++) {
+			let newArticles = {
+				title: results[i].headline.main,
+				url: results[i].web_url,
+				byline: results[i].byline.original,
+				year: results[i].pub_date
+			};
+			articles.push(newArticles);
+		}
+		console.log(articles);
+	});
 }
 
 // Changes XML to JSON
