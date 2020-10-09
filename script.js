@@ -2,9 +2,55 @@
 let place = localStorage.getItem('place');
 if (!place) { place = "Philadelphia"; }
 
-let booksArray = getBooks(place);
-let moviesArray = getMovies(place);
-let newsArray = getNews(place);
+let booksArray = [];
+getBooks(place);
+let moviesArray = [];
+getMovies(place);
+let newsArray = [];
+getNews(place);
+
+// "Show Books" button listener
+$("#show-books").on("click", function () {
+	$("#results-header").text("Book Recommendations");
+	$("#results-content").empty();
+	for(let i = 0; i < booksArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + booksArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let byDiv = $("<div>by " + booksArray[i].by + "</div>");
+		$("#results-content").append(byDiv);
+		let yearDiv = $("<div>Published: " + booksArray[i].year + "</div>");
+		$("#results-content").append(yearDiv);
+	}
+	$("#results-div").removeClass("hide");
+});
+
+// "Show Movies" button listener
+$("#show-movies").on("click", function () {
+	$("#results-header").text("Movie Recommendations");
+	$("#results-content").empty();
+	for(let i = 0; i < moviesArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let yearDiv = $("<div>" + moviesArray[i].year + "</div>");
+		$("#results-content").append(yearDiv);
+	}
+	$("#results-div").removeClass("hide");
+});
+
+// "Show News" button listener
+$("#show-news").on("click", function () {
+	$("#results-header").text("News Articles");
+	$("#results-content").empty();
+	for(let i = 0; i < newsArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + newsArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let byDiv = $("<div>by " + newsArray[i].by + "</div>");
+		$("#results-content").append(byDiv);
+		let yearDiv = $("<div>Published: " + newsArray[i].year + "</div>");
+		$("#results-content").append(yearDiv);
+	}
+	$("#results-div").removeClass("hide");
+});
 
 // Function that accesses the GoodReads API given a string representing their place search, and returns an array of book objects with only the key values we care about
 function getBooks(place) {
@@ -17,7 +63,6 @@ function getBooks(place) {
     }).then(function(xml) {
 		const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
 		const results = xmlToJson(XmlNode).GoodreadsResponse.search.results.work;
-		let books = [];
 		// Iterate through the messy array and build a cleaner array of objects representing each book on the list
 		for (let i = 0; i < results.length; i++) {
 			let newBook = {
@@ -26,18 +71,17 @@ function getBooks(place) {
 				image: results[i].best_book.image_url["#text"], 
 				year: results[i].original_publication_year["#text"]};
 			if (!newBook.year) { newBook.year = "unknown"; }
-			books.push(newBook);
+			booksArray.push(newBook);
 		}
-		console.log(books);
+		console.log("Books:", booksArray);
 
 		// Add a few reccomendations from books to the books card content
 		for (let i = 0; i < 5; i++) {
-			let newDiv = $("<div>- " + books[i].title + "</div>");
+			let newDiv = $("<div>- " + booksArray[i].title + "</div>");
 			$("#book-preview").append(newDiv);
 		}
 		// Unhide the "show results" link
 		$("#book-action").removeClass("hide");
-		return books;
 	});
 }
 
@@ -50,7 +94,6 @@ function getMovies(place) {
 		method: "GET"
   }).then(function(response) {
 		let results = response.Search;
-		let movies = [];
 		// Iterate through the result and build a cleaner array of objects representing each book on the list
 		for (let i = 0; i < results.length; i++) {
 			let newMovie = {
@@ -58,18 +101,17 @@ function getMovies(place) {
 				image: results[i].Poster, 
 				year: results[i].Year
 			};
-			movies.push(newMovie);
+			moviesArray.push(newMovie);
 		}
-		console.log(movies);
+		console.log("Movies:", moviesArray);
 	
-		// Add a few reccomendations from movies to the movies card content
+		// Add a few reccomendations from moviesArray to the movies card content
 		for (let i = 0; i < 5; i++) {
-			let newDiv = $("<div>- " + movies[i].title + "</div>");
+			let newDiv = $("<div>- " + moviesArray[i].title + "</div>");
 			$("#movie-preview").append(newDiv);
 		}		
 		// Unhide the "show results" link
 		$("#movie-action").removeClass("hide");
-		return movies;
     });
 }
 
@@ -82,7 +124,6 @@ function getNews(place) {
 		method: "GET"
 	}).then(function(response) {
 		let results = response.response.docs;
-		let articles = [];
 
 		// Iterate through the results array of objects representing news articles
 		for (let i = 0; i < results.length; i++) {
@@ -92,18 +133,17 @@ function getNews(place) {
 				byline: results[i].byline.original,
 				year: results[i].pub_date
 			};
-			articles.push(newArticles);
+			newsArray.push(newArticles);
 		}
-		console.log(articles);
+		console.log("News:", newsArray);
 
-		// Add a few reccomendations from articles to the news card content
+		// Add a few reccomendations from newsArray to the news card content
 		for (let i = 0; i < 5; i++) {
-			let newDiv = $("<div>- " + articles[i].title + "</div>");
+			let newDiv = $("<div>- " + newsArray[i].title + "</div>");
 			$("#news-preview").append(newDiv);
 		}
 		// Unhide the "show results" link
 		$("#news-action").removeClass("hide");
-		return articles;		
 	});
 }
 

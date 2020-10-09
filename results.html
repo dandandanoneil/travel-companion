@@ -38,8 +38,8 @@
           <div id="book-preview" class="card-content">
             <!-- script will load a few recs here -->
           </div>
-          <div class="card-action hide" id="book-action">
-            <a href="#" class="blue-text text-darken-2">Show Books</a>
+          <div class="card-action center-align hide" id="book-action">
+            <a id="show-books" class="waves-effect waves-light btn-small">Show Books</a>
           </div>
         </div>
       </div>
@@ -53,8 +53,8 @@
           <div id="movie-preview" class="card-content">
             <!-- script will load a few recs here -->
           </div>
-          <div class="card-action hide" id="movie-action">
-            <a href="#" class="blue-text text-darken-2">Show Movies</a>
+          <div class="card-action center-align hide" id="movie-action">
+            <a id="show-movies" class="waves-effect waves-light btn-small">Show Movies</a>
           </div>
         </div>
       </div>
@@ -68,8 +68,8 @@
           <div id="art-preview" class="card-content">
             <!-- script will load a few recs here -->
           </div>
-          <div class="card-action hide" id="art-action">
-            <a href="#" class="blue-text text-darken-2">Show Art</a>
+          <div class="card-action center-align hide" id="art-action">
+            <a id="show-art" class="waves-effect waves-light btn-small">Show Art</a>
           </div>
         </div>
       </div>
@@ -83,8 +83,8 @@
           <div id="news-preview" class="card-content">
             <!-- script will load a few recs here -->
           </div>
-          <div class="card-action hide" id="news-action">
-            <a href="#" class="blue-text text-darken-2">Show News</a>
+          <div class="card-action center-align hide" id="news-action">
+            <a id="show-news" class="waves-effect waves-light btn-small">Show News</a>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
     <div class="row">
       <div class="col m12 valign">
         <!-- This card is hidden using the ".hide" class - when script.js loads results, this class will be removed -->
-        <div class="card blue-grey darken-1 hide"> 
+        <div id="results-div" class="card blue-grey darken-1 hide"> 
           <div class="card-content white-text">
             <span id="results-header" class="card-title"><!-- script will add a header here --></span>
             <div id="results-content">
