@@ -5,6 +5,7 @@ if (!place) { place = "Philadelphia"; }
 let booksArray = getBooks(place);
 let moviesArray = getMovies(place);
 let newsArray = getNews(place);
+let artArray = getArt(place);
 
 // Function that accesses the GoodReads API given a string representing their place search, and returns an array of book objects with only the key values we care about
 function getBooks(place) {
@@ -104,6 +105,37 @@ function getNews(place) {
 		// Unhide the "show results" link
 		$("#news-action").removeClass("hide");
 		return articles;		
+	});
+}
+
+function getArt(place) {
+	var queryURL = "https://api.harvardartmuseums.org/exhibition?q=" + place + "&apikey=ad869fde-b267-4f1d-bf87-6a7b86478a0c";
+
+	$.ajax({
+		url: queryURL,
+		method: "GET"
+	}).then(function(response) {
+		let results = response.records;
+		let art = [];
+
+		for (let i = 0; i < results.length; i++) {
+			let newArt = {
+			title: results[i].title,
+			url: results[i].url,
+			exhibition: results[i].exhibitionid
+		};
+		art.push(newArt);
+	}
+	console.log(art);
+
+		// Add a few reccomendations from articles to the news card content
+		for (let i = 0; i < 5; i++) {
+			let newDiv = $("<div>- " + art[i].title + "</div>");
+			$("#art-preview").append(newDiv);
+		}
+		// Unhide the "show results" link
+		$("#art-action").removeClass("hide");
+		return art;		
 	});
 }
 
