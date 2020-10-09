@@ -4,6 +4,7 @@ if (!place) { place = "Philadelphia"; }
 
 // Run getBooks() to test it
 getBooks(place);
+getMovies(place);
 
 // Function that accesses the GoodReads API given a string representing their place search
 function getBooks(place) {
@@ -14,10 +15,6 @@ function getBooks(place) {
 		dataType: "text",
         method: "GET"
     }).then(function(xml) {
-        // Code here
-		// console.log(xml);
-		// console.log(typeof xml);
-		// console.log(JSON.stringify(xml));
 		const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
 		const results = xmlToJson(XmlNode).GoodreadsResponse.search.results.work;
 		let books = [];
@@ -32,6 +29,29 @@ function getBooks(place) {
 			books.push(newBook);
 		}
 		console.log(books);
+    });
+}
+
+// Function that accesses the Open Movie Database API given a string representing their place search
+function getMovies(place) {
+	var queryURL = "https://www.omdbapi.com/?s=" + place + "&apikey=10b7e919";
+
+    $.ajax({
+		url: queryURL,
+		method: "GET"
+  }).then(function(response) {
+		let results = response.Search;
+		let movies = [];
+		// Iterate through the result and build a cleaner array of objects representing each book on the list
+		for (let i = 0; i < results.length; i++) {
+			let newMovie = {
+				title: results[i].Title,  
+				image: results[i].Poster, 
+				year: results[i].Year
+			};
+			movies.push(newMovie);
+		}
+		console.log(movies);
     });
 }
 
