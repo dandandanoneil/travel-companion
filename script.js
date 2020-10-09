@@ -5,6 +5,7 @@ if (!place) { place = "Philadelphia"; }
 // Run getBooks() to test it
 getBooks(place);
 getMovies(place);
+getNews(place);
 
 // Function that accesses the GoodReads API given a string representing their place search
 function getBooks(place) {
@@ -53,6 +54,30 @@ function getMovies(place) {
 		}
 		console.log(movies);
     });
+}
+
+function getNews(place) {
+	var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=articles&fq=glocations:" + place + "&api-key=g3KFAz8SGDwQs4rxRmIrPbDPuhJbsmtG";
+
+	 $.ajax({
+		url: queryURL,
+		method: "GET"
+	}).then(function(response) {
+		let results = response.response.docs;
+		let articles = [];
+		console.log(results);
+		// Iterate through the results array of objects representing news articles
+		for (let i = 0; i < results.length; i++) {
+			let newArticles = {
+				title: results[i].headline.main,
+				url: results[i].web_url,
+				byline: results[i].byline.original,
+				year: results[i].pub_date
+			};
+			articles.push(newArticles);
+		}
+		console.log(articles);
+	});
 }
 
 // Changes XML to JSON
