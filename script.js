@@ -8,6 +8,8 @@ let moviesArray = [];
 getMovies(place);
 let newsArray = [];
 getNews(place);
+let artArray = [];
+getArt(place);
 
 // "Show Books" button listener
 $("#show-books").on("click", function () {
@@ -48,6 +50,21 @@ $("#show-news").on("click", function () {
 		$("#results-content").append(byDiv);
 		let yearDiv = $("<div>Published: " + newsArray[i].year + "</div>");
 		$("#results-content").append(yearDiv);
+	}
+	$("#results-div").removeClass("hide");
+});
+
+// "Show Art" button listener
+$("#show-art").on("click", function () {
+	$("#results-header").text("Art Exhibitions");
+	$("#results-content").empty();
+	for(let i = 0; i < artArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + artArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let urlDiv = $("<div>url " + artArray[i].url + "</div>");
+		$("#results-content").append(urlDiv);
+		let nameDiv = $("<div>Venue: " + artArray[i].venues + "</div>");
+		$("#results-content").append(nameDiv);
 	}
 	$("#results-div").removeClass("hide");
 });
@@ -144,6 +161,38 @@ function getNews(place) {
 		}
 		// Unhide the "show results" link
 		$("#news-action").removeClass("hide");
+	});
+}
+
+// Function that accesses the NYTimes API given a string representing their place search, and returns an array of article objects with only the key values we care about
+function getArt(place) {
+	var queryURL = "https://api.harvardartmuseums.org/exhibition?q=" + place + "&apikey=ad869fde-b267-4f1d-bf87-6a7b86478a0c";
+
+	$.ajax({
+		url: queryURL,
+		method: "GET"
+	}).then(function(response) {
+		let results = response.records;
+		let art = [];
+		// Iterate through the results array of objects representing art
+		for (let i = 0; i < results.length; i++) {
+			let newArt = {
+			title: results[i].title,
+			url: results[i].url,
+			name: results[i].venues
+		};
+		art.push(newArt);
+	}
+	console.log("Art:", art);
+
+		// Add a few reccomendations from articles to the news card content
+		for (let i = 0; i < 5; i++) {
+			let newDiv = $("<div>- " + art[i].title + "</div>");
+			$("#art-preview").append(newDiv);
+		}
+		// Unhide the "show results" link
+		$("#art-action").removeClass("hide");
+		return art;		
 	});
 }
 
