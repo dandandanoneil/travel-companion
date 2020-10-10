@@ -1,20 +1,19 @@
 /*Center the landing page card responsively*/
 #landingCard {
+background-image: url('https://image.freepik.com/free-photo/old-parchment-paper-banner-texture_118047-2571.jpg');
 box-shadow: 0 0 25px black;
 width: 500px;
 margin: 150px auto;
-background-color: #3e1409;
 border: groove;
-color:whitesmoke;
+color:black;
 text-align: center;
 }
 
 h3 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Lora', serif;
 }
 
-body {
-  font-family: 'Courier New', Courier, monospace;
+#landing {
   background-image: url('https://cdn1.vectorstock.com/i/1000x1000/75/90/vintage-travel-visa-passport-stamps-vector-11097590.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
@@ -24,4 +23,10 @@ body {
 .nav-wrapper {
   background-color: antiquewhite;
   font-family: 'Lora', serif;
+}
+
+#map {
+  width: 500px;
+  height: 300px;
+  background-color: tan;
 }
