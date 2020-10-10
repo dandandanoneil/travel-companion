@@ -87,7 +87,7 @@ function getLocation() {
 
 function checkInput(userInput) {
     // We're going to accept all user inputs for now until we figure out how to check this
-	if (input != "") { 
+	if (userInput != "") { 
 		return true; 
 	} else {
 		return false
