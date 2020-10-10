@@ -38,10 +38,8 @@ $("#show-movies").on("click", function () {
 	$("#results-header").text("Movie Recommendations");
 	$("#results-content").empty();
 	for(let i = 0; i < moviesArray.length; i++) {
-		let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "</h6>");
+		let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "(" + moviesArray[i].year + ")" + "</h6>");
 		$("#results-content").append(titleDiv);
-		let yearDiv = $("<div>" + moviesArray[i].year + "</div>");
-		$("#results-content").append(yearDiv);
 		let posterImage = $("<img src ='" + moviesArray[i].image + "' alt='movie poster'>")
 		$("#results-content").append(posterImage);
 		$("#results-content").append($("<div class='divider'></div>"));
@@ -76,6 +74,7 @@ $("#show-art").on("click", function () {
 		$("#results-content").append(urlDiv);
 		let nameDiv = $("<div>Venue: " + artArray[i].venues + "</div>");
 		$("#results-content").append(nameDiv);
+		$("#results-content").append($("<div class='divider'></div>"));
 	}
 	$("#results-div").removeClass("hide");
 });
