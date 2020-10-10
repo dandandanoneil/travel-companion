@@ -24,6 +24,7 @@ $("#show-books").on("click", function () {
 		$("#results-content").append(byDiv);
 		let yearDiv = $("<div>Published: " + booksArray[i].year + "</div>");
 		$("#results-content").append(yearDiv);
+		$("#results-content").append($("<div class='divider'></div>"));
 	}
 	$("#results-div").removeClass("hide");
 });
@@ -53,6 +54,7 @@ $("#show-news").on("click", function () {
 		$("#results-content").append(byDiv);
 		let yearDiv = $("<div>Published: " + newsArray[i].year + "</div>");
 		$("#results-content").append(yearDiv);
+		$("#results-content").append($("<div class='divider'></div>"));
 	}
 	$("#results-div").removeClass("hide");
 });
@@ -68,6 +70,7 @@ $("#show-art").on("click", function () {
 		$("#results-content").append(urlDiv);
 		let nameDiv = $("<div>Venue: " + artArray[i].venues + "</div>");
 		$("#results-content").append(nameDiv);
+		$("#results-content").append($("<div class='divider'></div>"));
 	}
 	$("#results-div").removeClass("hide");
 });
