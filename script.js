@@ -133,11 +133,14 @@ $("#show-news").on("click", function () {
 	$("#results-header").text("News Articles");
 	$("#results-content").empty();
 	for(let i = 0; i < newsArray.length; i++) {
-		let titleDiv = $("<h6 class='text-bold'>" + newsArray[i].title + "</h6>");
+		let titleDiv = $("<a class='text-bold'>" + newsArray[i].title + "</a>");
+		titleDiv.attr("href", newsArray[i].url)
 		$("#results-content").append(titleDiv);
-		let byDiv = $("<div>by " + newsArray[i].by + "</div>");
-		$("#results-content").append(byDiv);
-		let yearDiv = $("<div>Published: " + newsArray[i].year + "</div>");
+		if(newsArray[i].by && newsArray[i].by != "By") {
+			let byDiv = $("<div>by " + newsArray[i].by + "</div>");
+			$("#results-content").append(byDiv);
+		}
+		let yearDiv = $("<div>Published: " + newsArray[i].year.substring(0,9) + "</div>");
 		$("#results-content").append(yearDiv);
 		$("#results-content").append($("<div class='divider'></div>"));
 	}
@@ -249,7 +252,7 @@ function getNews(place) {
             let newArticles = {
                 title: results[i].headline.main,
                 url: results[i].web_url,
-                byline: results[i].byline.original,
+                by: results[i].byline.original,
                 year: results[i].pub_date
             };
             newsArray.push(newArticles);
