@@ -99,7 +99,9 @@ $("#show-books").on("click", function () {
 	$("#results-header").text("Book Recommendations");
 	$("#results-content").empty();
 	for(let i = 0; i < booksArray.length; i++) {
-		let titleDiv = $("<h6 class='text-bold'>" + booksArray[i].title + "</h6>");
+		let titleDiv = $("<a class='text-bold'>" + booksArray[i].title + "</a>");
+		titleDiv.attr("href", booksArray[i].url);
+		titleDiv.attr("target", "_blank");
 		$("#results-content").append(titleDiv);
 		let byDiv = $("<div>by " + booksArray[i].by + "</div>");
 		$("#results-content").append(byDiv);
@@ -174,14 +176,18 @@ function getBooks(place) {
       
         const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
         const results = xmlToJson(XmlNode).GoodreadsResponse.search.results.work;
-        // Iterate through the messy array and build a cleaner array of objects representing each book on the list
+		// Iterate through the messy array and build a cleaner array of objects representing each book on the list
         for (let i = 0; i < results.length; i++) {
             let newBook = {
                 title: results[i].best_book.title["#text"],  
                 by: results[i].best_book.author.name["#text"], 
                 image: results[i].best_book.image_url["#text"], 
-                year: results[i].original_publication_year["#text"]};
-            if (!newBook.year) { newBook.year = "unknown"; }
+
+				year: results[i].original_publication_year["#text"], 
+				url: "https://www.goodreads.com/book/show/" + results[i].best_book.id["#text"]
+			};
+			if (!newBook.year) { newBook.year = "unknown"; }
+
             booksArray.push(newBook);
         }
         console.log("Books:", booksArray);
