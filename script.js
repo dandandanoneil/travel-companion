@@ -105,10 +105,6 @@ $("#show-books").on("click", function () {
 		$("#results-content").append(byDiv);
 		let yearDiv = $("<div>Published: " + booksArray[i].year + "</div>");
 		$("#results-content").append(yearDiv);
-		if (booksArray[i].image != "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
-			let bookImage = $("<img src ='" + booksArray[i].image + "' alt='book image'>")
-			$("#results-content").append(bookImage);
-		}
 		$("#results-content").append($("<div class='divider'></div>"));
 	}
 	$("#results-div").removeClass("hide");
@@ -116,16 +112,16 @@ $("#show-books").on("click", function () {
 
 // "Show Movies" button listener
 $("#show-movies").on("click", function () {
-	$("#results-header").text("Movie Recommendations");
-	$("#results-content").empty();
-	for(let i = 0; i < moviesArray.length; i++) {
-		let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "(" + moviesArray[i].year + ")" + "</h6>");
-		$("#results-content").append(titleDiv);
-		let posterImage = $("<img src ='" + moviesArray[i].image + "' alt='movie poster'>")
+    $("#results-header").text("Movie Recommendations");
+    $("#results-content").empty();
+    for(let i = 0; i < moviesArray.length; i++) {
+        let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "(" + moviesArray[i].year + ")" + "</h6>");
+        $("#results-content").append(titleDiv);
+        let posterImage = $("<img src ='" + moviesArray[i].image + "' alt='movie poster'>")
 		$("#results-content").append(posterImage);
 		$("#results-content").append($("<div class='divider'></div>"));
-	}
-	$("#results-div").removeClass("hide");
+    }
+    $("#results-div").removeClass("hide");
 });
 
 // "Show News" button listener
@@ -149,10 +145,9 @@ $("#show-art").on("click", function () {
 	$("#results-header").text("Art Exhibitions");
 	$("#results-content").empty();
 	for(let i = 0; i < artArray.length; i++) {
-		let titleDiv = $("<h6 class='text-bold'>" + artArray[i].title + "</h6>");
+		let titleDiv = $("<a class='text-bold'>" + artArray[i].title + "</h6>");
+		titleDiv.attr("href", artArray[i].url);
 		$("#results-content").append(titleDiv);
-		let urlDiv = $("<div>url " + artArray[i].url + "</div>");
-		$("#results-content").append(urlDiv);
 		let nameDiv = $("<div>Venue: " + artArray[i].venues + "</div>");
 		$("#results-content").append(nameDiv);
 		$("#results-content").append($("<div class='divider'></div>"));
@@ -179,7 +174,7 @@ function getBooks(place) {
                 by: results[i].best_book.author.name["#text"], 
                 image: results[i].best_book.image_url["#text"], 
                 year: results[i].original_publication_year["#text"]};
-			if (!newBook.year) { newBook.year = "unknown"; }
+            if (!newBook.year) { newBook.year = "unknown"; }
             booksArray.push(newBook);
         }
         console.log("Books:", booksArray);
@@ -191,8 +186,7 @@ function getBooks(place) {
 		for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + booksArray[i].title + "</div>");
             $("#book-preview").append(newDiv);
-		}
-		
+        }
 		// Unhide the "show results" link & show how many results there are
 		$("#books-title").text(place + " in Books (" + booksArray.length + ")");
         $("#book-action").removeClass("hide");
@@ -290,7 +284,7 @@ function getArt(place) {
          // Then build the newArt object and push to artArray
 		 let newArt = {
             title: results[i].title,
-			url: results[i].url,
+            url: results[i].url,
             venues: venueList};
             artArray.push(newArt);
         }
