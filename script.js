@@ -1,3 +1,6 @@
+// Establish the random places array in case they click that button
+const places = ['Paris', 'New Orleans', 'Cleveland', 'San Francisco', 'London', 'Milan', 'Berlin', 'Mexico City', 'Melbourne']
+
 // Get place from localStorage - if nothing's there, use Philadelphia
 let place = localStorage.getItem('place');
 if (!place) { place = "Philadelphia"; }
@@ -12,6 +15,84 @@ let artArray = [];
 getArt(place);
 
 $("#header").text("Welcome to " + place);
+console.log(place);
+
+// Search by city button
+$('#searchBtn').on('click', function () {
+    let newPlace = $('#searchBar').val();
+    // Check to make sure their input is valid
+    if(checkInput(newPlace)) {
+		// Store the new place
+		localStorage.setItem('place', newPlace);
+		// Reset all the arrays
+		booksArray = [];
+		moviesArray = [];
+		newsArray = [];
+		artArray = [];
+		// Render the new page
+		$("#header").text("Welcome to " + newPlace);
+		$("#results-div").addClass("hide");
+        getBooks(newPlace);
+		getMovies(newPlace);
+		getNews(newPlace);
+		getArt(newPlace);
+    }
+});
+
+// Send me somewhere random button
+$('#randomBtn').on('click', function () {
+    let index = Math.floor(Math.random() * places.length);
+    let newPlace = places[index];
+	// Store the new place
+	localStorage.setItem('place', newPlace);
+	// Reset all the arrays
+	booksArray = [];
+	moviesArray = [];
+	newsArray = [];
+	artArray = [];
+	// Render the new page
+	$("#header").text("Welcome to " + newPlace);
+	$("#results-div").addClass("hide");
+	getBooks(newPlace);
+	getMovies(newPlace);
+	getNews(newPlace);
+	getArt(newPlace);
+});
+
+// Use my location button
+$('#locationBtn').on('click', function () {
+	let newPlace =  getLocation();
+	// Store the new place
+	localStorage.setItem('place', newPlace);
+	// Reset all the arrays
+	booksArray = [];
+	moviesArray = [];
+	newsArray = [];
+	artArray = [];
+	// Render the new page
+	$("#header").text("Welcome to " + newPlace);
+	$("#results-div").addClass("hide");
+	getBooks(newPlace);
+	getMovies(newPlace);
+	getNews(newPlace);
+	getArt(newPlace);
+});
+
+function getLocation() {
+    // Re-use Tricia's function/API call that gets the user's location and converts it to a place name/string
+    // For now, use Philadelphia as the user's location
+    let here = "Philadelphia";
+    return here;    
+}
+
+function checkInput(userInput) {
+    // We're going to accept all user inputs for now until we figure out how to check this
+	if (input != "") { 
+		return true; 
+	} else {
+		return false
+	}
+}
 
 // "Show Books" button listener
 $("#show-books").on("click", function () {
@@ -102,12 +183,13 @@ function getBooks(place) {
 		// Add a few reccomendations from books to the books card content
 		let limit = 5;
 		if (booksArray.length < 5) { limit = booksArray.length; }
-        for (let i = 0; i < limit; i++) {
+		$("#book-preview").empty();
+		for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + booksArray[i].title + "</div>");
             $("#book-preview").append(newDiv);
         }
 		// Unhide the "show results" link & show how many results there are
-		$("#books-title").text("Books (" + booksArray.length + ")");
+		$("#books-title").text(place + " in Books (" + booksArray.length + ")");
         $("#book-action").removeClass("hide");
     });
 }
@@ -136,12 +218,13 @@ function getMovies(place) {
         // Add a few reccomendations from moviesArray to the movies card content
 		let limit = 5;
 		if (moviesArray.length < 5) { limit = moviesArray.length; }
-        for (let i = 0; i < limit; i++) {
+		$("#movie-preview").empty();
+		for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + moviesArray[i].title + "</div>");
             $("#movie-preview").append(newDiv);
         }       
 		// Unhide the "show results" link & show how many results there are
-		$("#movies-title").text("Movies (" + moviesArray.length + ")");
+		$("#movies-title").text(place + " at the Movies (" + moviesArray.length + ")");
         $("#movie-action").removeClass("hide");
     });
 }
@@ -171,12 +254,13 @@ function getNews(place) {
         // Add a few reccomendations from newsArray to the news card content
 		let limit = 5;
 		if (newsArray.length < 5) { limit = newsArray.length; }
-        for (let i = 0; i < limit; i++) {
+		$("#news-preview").empty();
+		for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + newsArray[i].title + "</div>");
             $("#news-preview").append(newDiv);
         }
 		// Unhide the "show results" link & show how many results there are
-		$("#news-title").text("News (" + newsArray.length + ")");
+		$("#news-title").text(place + " in the News (" + newsArray.length + ")");
         $("#news-action").removeClass("hide");
     });
 }
@@ -211,12 +295,13 @@ function getArt(place) {
         // Add a few reccomendations from articles to the news card content
 		let limit = 5;
 		if (artArray.length < 5) { limit = artArray.length; }
-        for (let i = 0; i < limit; i++) {
+		$("#art-preview").empty();
+		for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + artArray[i].title + "</div>");
             $("#art-preview").append(newDiv);
         }
 		// Unhide the "show results" link & show how many results there are
-		$("#art-title").text("Art (" + artArray.length + ")");
+		$("#art-title").text(place + " in Art (" + artArray.length + ")");
         $("#art-action").removeClass("hide");
     });
 }
