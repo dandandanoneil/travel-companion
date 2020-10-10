@@ -80,28 +80,32 @@ function getBooks(place) {
 		dataType: "text",
         method: "GET"
     }).then(function(xml) {
-		const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
-		const results = xmlToJson(XmlNode).GoodreadsResponse.search.results.work;
-		// Iterate through the messy array and build a cleaner array of objects representing each book on the list
-		for (let i = 0; i < results.length; i++) {
-			let newBook = {
-				title: results[i].best_book.title["#text"],  
-				by: results[i].best_book.author.name["#text"], 
-				image: results[i].best_book.image_url["#text"], 
-				year: results[i].original_publication_year["#text"]};
-			if (!newBook.year) { newBook.year = "unknown"; }
-			booksArray.push(newBook);
-		}
-		console.log("Books:", booksArray);
+      
+        const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
+        const results = xmlToJson(XmlNode).GoodreadsResponse.search.results.work;
+        // Iterate through the messy array and build a cleaner array of objects representing each book on the list
+        for (let i = 0; i < results.length; i++) {
+            let newBook = {
+                title: results[i].best_book.title["#text"],  
+                by: results[i].best_book.author.name["#text"], 
+                image: results[i].best_book.image_url["#text"], 
+                year: results[i].original_publication_year["#text"]};
+            if (!newBook.year) { newBook.year = "unknown"; }
+            booksArray.push(newBook);
+        }
+        console.log("Books:", booksArray);
 
 		// Add a few reccomendations from books to the books card content
-		for (let i = 0; i < 5; i++) {
-			let newDiv = $("<div>- " + booksArray[i].title + "</div>");
-			$("#book-preview").append(newDiv);
-		}
-		// Unhide the "show results" link
-		$("#book-action").removeClass("hide");
-	});
+		let limit = 5;
+		if (booksArray.length < 5) { limit = booksArray.length; }
+        for (let i = 0; i < limit; i++) {
+            let newDiv = $("<div>- " + booksArray[i].title + "</div>");
+            $("#book-preview").append(newDiv);
+        }
+		// Unhide the "show results" link & show how many results there are
+		$("#books-title").text("Books (" + booksArray.length + ")");
+        $("#book-action").removeClass("hide");
+    });
 }
 
 // Function that accesses the Open Movie Database API given a string representing their place search, and builds an array of movie objects with only the key values we care about
@@ -112,59 +116,65 @@ function getMovies(place) {
 		url: queryURL,
 		method: "GET"
   }).then(function(response) {
-		let results = response.Search;
-		// Iterate through the result and build a cleaner array of objects representing each book on the list
-		for (let i = 0; i < results.length; i++) {
-			let newMovie = {
-				title: results[i].Title,  
-				image: results[i].Poster, 
-				year: results[i].Year
-			};
-			moviesArray.push(newMovie);
-		}
-		console.log("Movies:", moviesArray);
-	
-		// Add a few reccomendations from moviesArray to the movies card content
-		for (let i = 0; i < 5; i++) {
-			let newDiv = $("<div>- " + moviesArray[i].title + "</div>");
-			$("#movie-preview").append(newDiv);
-		}		
-		// Unhide the "show results" link
-		$("#movie-action").removeClass("hide");
+
+        let results = response.Search;
+        // Iterate through the result and build a cleaner array of objects representing each book on the list
+        for (let i = 0; i < results.length; i++) {
+            let newMovie = {
+                title: results[i].Title,  
+                image: results[i].Poster, 
+                year: results[i].Year
+            };
+            moviesArray.push(newMovie);
+        }
+        console.log("Movies:", moviesArray);
+    
+        // Add a few reccomendations from moviesArray to the movies card content
+		let limit = 5;
+		if (moviesArray.length < 5) { limit = moviesArray.length; }
+        for (let i = 0; i < limit; i++) {
+            let newDiv = $("<div>- " + moviesArray[i].title + "</div>");
+            $("#movie-preview").append(newDiv);
+        }       
+		// Unhide the "show results" link & show how many results there are
+		$("#movies-title").text("Movies (" + moviesArray.length + ")");
+        $("#movie-action").removeClass("hide");
     });
 }
 
 // Function that accesses the NYTimes API given a string representing their place search, and builds an array of article objects with only the key values we care about
 function getNews(place) {
-	var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=articles&fq=glocations:" + place + "&api-key=g3KFAz8SGDwQs4rxRmIrPbDPuhJbsmtG";
+    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=articles&fq=glocations:" + place + "&api-key=g3KFAz8SGDwQs4rxRmIrPbDPuhJbsmtG";
 
-	 $.ajax({
-		url: queryURL,
-		method: "GET"
-	}).then(function(response) {
-		let results = response.response.docs;
+     $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        let results = response.response.docs;
 
-		// Iterate through the results array of objects representing news articles
-		for (let i = 0; i < results.length; i++) {
-			let newArticles = {
-				title: results[i].headline.main,
-				url: results[i].web_url,
-				byline: results[i].byline.original,
-				year: results[i].pub_date
-			};
-			newsArray.push(newArticles);
-		}
-		console.log("News:", newsArray);
+        // Iterate through the results array of objects representing news articles
+        for (let i = 0; i < results.length; i++) {
+            let newArticles = {
+                title: results[i].headline.main,
+                url: results[i].web_url,
+                byline: results[i].byline.original,
+                year: results[i].pub_date
+            };
+            newsArray.push(newArticles);
+        }
+        console.log("News:", newsArray);
 
-		// Add a few reccomendations from newsArray to the news card content
-		for (let i = 0; i < 5; i++) {
-			let newDiv = $("<div>- " + newsArray[i].title + "</div>");
-			$("#news-preview").append(newDiv);
-		}
-		// Unhide the "show results" link
-		$("#news-action").removeClass("hide");
-	});
-}
+        // Add a few reccomendations from newsArray to the news card content
+		let limit = 5;
+		if (newsArray.length < 5) { limit = newsArray.length; }
+        for (let i = 0; i < limit; i++) {
+            let newDiv = $("<div>- " + newsArray[i].title + "</div>");
+            $("#news-preview").append(newDiv);
+        }
+		// Unhide the "show results" link & show how many results there are
+		$("#news-title").text("News (" + newsArray.length + ")");
+        $("#news-action").removeClass("hide");
+    });
 
 // Function that accesses the Harvard Art Museums API given a string representing their place search, and builds an array of artwork objects with only the key values we care about
 function getArt(place) {
@@ -194,14 +204,17 @@ function getArt(place) {
     
         console.log("Art:", artArray);
 
-		// Add a few reccomendations from articles to the news card content
-		for (let i = 0; i < 5; i++) {
-			let newDiv = $("<div>- " + artArray[i].title + "</div>");
-			$("#art-preview").append(newDiv);
-		}
-		// Unhide the "show results" link
-		$("#art-action").removeClass("hide");
-	});
+        // Add a few reccomendations from articles to the news card content
+		let limit = 5;
+		if (artArray.length < 5) { limit = artArray.length; }
+        for (let i = 0; i < limit; i++) {
+            let newDiv = $("<div>- " + artArray[i].title + "</div>");
+            $("#art-preview").append(newDiv);
+        }
+		// Unhide the "show results" link & show how many results there are
+		$("#art-title").text("Art (" + artArray.length + ")");
+        $("#art-action").removeClass("hide");
+    });
 }
 
 // Changes XML to JSON
