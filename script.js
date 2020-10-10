@@ -11,62 +11,64 @@ getNews(place);
 let artArray = [];
 getArt(place);
 
+$("#header").text("Welcome to " + place);
+
 // "Show Books" button listener
 $("#show-books").on("click", function () {
-    $("#results-header").text("Book Recommendations");
-    $("#results-content").empty();
-    for(let i = 0; i < booksArray.length; i++) {
-        let titleDiv = $("<h6 class='text-bold'>" + booksArray[i].title + "</h6>");
-        $("#results-content").append(titleDiv);
-        let byDiv = $("<div>by " + booksArray[i].by + "</div>");
-        $("#results-content").append(byDiv);
-        let yearDiv = $("<div>Published: " + booksArray[i].year + "</div>");
-        $("#results-content").append(yearDiv);
-    }
-    $("#results-div").removeClass("hide");
+	$("#results-header").text("Book Recommendations");
+	$("#results-content").empty();
+	for(let i = 0; i < booksArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + booksArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let byDiv = $("<div>by " + booksArray[i].by + "</div>");
+		$("#results-content").append(byDiv);
+		let yearDiv = $("<div>Published: " + booksArray[i].year + "</div>");
+		$("#results-content").append(yearDiv);
+	}
+	$("#results-div").removeClass("hide");
 });
 
 // "Show Movies" button listener
 $("#show-movies").on("click", function () {
-    $("#results-header").text("Movie Recommendations");
-    $("#results-content").empty();
-    for(let i = 0; i < moviesArray.length; i++) {
-        let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "</h6>");
-        $("#results-content").append(titleDiv);
-        let yearDiv = $("<div>" + moviesArray[i].year + "</div>");
-        $("#results-content").append(yearDiv);
-    }
-    $("#results-div").removeClass("hide");
+	$("#results-header").text("Movie Recommendations");
+	$("#results-content").empty();
+	for(let i = 0; i < moviesArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let yearDiv = $("<div>" + moviesArray[i].year + "</div>");
+		$("#results-content").append(yearDiv);
+	}
+	$("#results-div").removeClass("hide");
 });
 
 // "Show News" button listener
 $("#show-news").on("click", function () {
-    $("#results-header").text("News Articles");
-    $("#results-content").empty();
-    for(let i = 0; i < newsArray.length; i++) {
-        let titleDiv = $("<h6 class='text-bold'>" + newsArray[i].title + "</h6>");
-        $("#results-content").append(titleDiv);
-        let byDiv = $("<div>by " + newsArray[i].by + "</div>");
-        $("#results-content").append(byDiv);
-        let yearDiv = $("<div>Published: " + newsArray[i].year + "</div>");
-        $("#results-content").append(yearDiv);
-    }
-    $("#results-div").removeClass("hide");
+	$("#results-header").text("News Articles");
+	$("#results-content").empty();
+	for(let i = 0; i < newsArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + newsArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let byDiv = $("<div>by " + newsArray[i].by + "</div>");
+		$("#results-content").append(byDiv);
+		let yearDiv = $("<div>Published: " + newsArray[i].year + "</div>");
+		$("#results-content").append(yearDiv);
+	}
+	$("#results-div").removeClass("hide");
 });
 
 // "Show Art" button listener
 $("#show-art").on("click", function () {
-    $("#results-header").text("Art Exhibitions");
-    $("#results-content").empty();
-    for(let i = 0; i < artArray.length; i++) {
-        let titleDiv = $("<h6 class='text-bold'>" + artArray[i].title + "</h6>");
-        $("#results-content").append(titleDiv);
-        let urlDiv = $("<div>url " + artArray[i].url + "</div>");
-        $("#results-content").append(urlDiv);
-        let nameDiv = $("<div>Venue: " + artArray[i].venues + "</div>");
-        $("#results-content").append(nameDiv);
-    }
-    $("#results-div").removeClass("hide");
+	$("#results-header").text("Art Exhibitions");
+	$("#results-content").empty();
+	for(let i = 0; i < artArray.length; i++) {
+		let titleDiv = $("<h6 class='text-bold'>" + artArray[i].title + "</h6>");
+		$("#results-content").append(titleDiv);
+		let urlDiv = $("<div>url " + artArray[i].url + "</div>");
+		$("#results-content").append(urlDiv);
+		let nameDiv = $("<div>Venue: " + artArray[i].venues + "</div>");
+		$("#results-content").append(nameDiv);
+	}
+	$("#results-div").removeClass("hide");
 });
 
 // Function that accesses the GoodReads API given a string representing their place search, and builds an array of book objects with only the key values we care about
@@ -74,10 +76,11 @@ function getBooks(place) {
     let queryURL = "https://cors-anywhere.herokuapp.com/" + "https://www.goodreads.com/search.xml?key=Ftrxz5uVKXShxfHT69uvg&q=travel%20" + place;
 
     $.ajax({
-        url: queryURL,
-        dataType: "text",
+		url: queryURL,
+		dataType: "text",
         method: "GET"
     }).then(function(xml) {
+      
         const XmlNode = new DOMParser().parseFromString(xml, 'text/xml');
         const results = xmlToJson(XmlNode).GoodreadsResponse.search.results.work;
         // Iterate through the messy array and build a cleaner array of objects representing each book on the list
@@ -107,12 +110,13 @@ function getBooks(place) {
 
 // Function that accesses the Open Movie Database API given a string representing their place search, and builds an array of movie objects with only the key values we care about
 function getMovies(place) {
-    var queryURL = "https://www.omdbapi.com/?s=" + place + "&apikey=10b7e919";
+	var queryURL = "https://www.omdbapi.com/?s=" + place + "&apikey=10b7e919";
 
     $.ajax({
-        url: queryURL,
-        method: "GET"
+		url: queryURL,
+		method: "GET"
   }).then(function(response) {
+
         let results = response.Search;
         // Iterate through the result and build a cleaner array of objects representing each book on the list
         for (let i = 0; i < results.length; i++) {
@@ -171,28 +175,27 @@ function getNews(place) {
 		$("#news-title").text("News (" + newsArray.length + ")");
         $("#news-action").removeClass("hide");
     });
-}
 
 // Function that accesses the Harvard Art Museums API given a string representing their place search, and builds an array of artwork objects with only the key values we care about
 function getArt(place) {
-    var queryURL = "https://api.harvardartmuseums.org/exhibition?q=" + place + "&apikey=ad869fde-b267-4f1d-bf87-6a7b86478a0c";
+	var queryURL = "https://api.harvardartmuseums.org/exhibition?q=" + place + "&apikey=ad869fde-b267-4f1d-bf87-6a7b86478a0c";
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response) {
-        let results = response.records;
-        // Iterate through the results array of objects representing art
-        for (let i = 0; i < results.length; i++) {
-            // First, build a string of the venues in the results[i].venues array (venueList)
-            let venueList = results[i].venues[0].name;
-            if (results[i].venues.length > 1) {
-                for (let j = 0; j < results[i].venues.length; j++) {
-                    venueList += ", " + results[i].venues[j].name;
-                }
-            }
-            // Then build the newArt object and push to artArray
-            let newArt = {
+	$.ajax({
+		url: queryURL,
+		method: "GET"
+	}).then(function(response) {
+		let results = response.records;
+		// Iterate through the results array of objects representing art
+		for (let i = 0; i < results.length; i++) {
+  // First, build a string of the venues in the results[i].venues array (venueList)
+  let venueList = results[i].venues[0].name;
+  if (results[i].venues.length > 1) {
+	  for (let j = 0; j < results[i].venues.length; j++) {
+		  venueList += ", " + results[i].venues[j].name;
+	  }
+  }
+         // Then build the newArt object and push to artArray
+		 let newArt = {
             title: results[i].title,
             url: results[i].url,
             venues: venueList};
@@ -217,39 +220,39 @@ function getArt(place) {
 // Changes XML to JSON
 // Code sourced from https://davidwalsh.name/convert-xml-json
 function xmlToJson(xml) {
-    
-    // Create the return object
-    var obj = {};
+	
+	// Create the return object
+	var obj = {};
 
-    if (xml.nodeType == 1) { // element
-        // do attributes
-        if (xml.attributes.length > 0) {
-        obj["@attributes"] = {};
-            for (var j = 0; j < xml.attributes.length; j++) {
-                var attribute = xml.attributes.item(j);
-                obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-            }
-        }
-    } else if (xml.nodeType == 3) { // text
-        obj = xml.nodeValue;
-    }
+	if (xml.nodeType == 1) { // element
+		// do attributes
+		if (xml.attributes.length > 0) {
+		obj["@attributes"] = {};
+			for (var j = 0; j < xml.attributes.length; j++) {
+				var attribute = xml.attributes.item(j);
+				obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+			}
+		}
+	} else if (xml.nodeType == 3) { // text
+		obj = xml.nodeValue;
+	}
 
-    // do children
-    if (xml.hasChildNodes()) {
-        for(var i = 0; i < xml.childNodes.length; i++) {
-            var item = xml.childNodes.item(i);
-            var nodeName = item.nodeName;
-            if (typeof(obj[nodeName]) == "undefined") {
-                obj[nodeName] = xmlToJson(item);
-            } else {
-                if (typeof(obj[nodeName].push) == "undefined") {
-                    var old = obj[nodeName];
-                    obj[nodeName] = [];
-                    obj[nodeName].push(old);
-                }
-                obj[nodeName].push(xmlToJson(item));
-            }
-        }
-    }
-    return obj;
+	// do children
+	if (xml.hasChildNodes()) {
+		for(var i = 0; i < xml.childNodes.length; i++) {
+			var item = xml.childNodes.item(i);
+			var nodeName = item.nodeName;
+			if (typeof(obj[nodeName]) == "undefined") {
+				obj[nodeName] = xmlToJson(item);
+			} else {
+				if (typeof(obj[nodeName].push) == "undefined") {
+					var old = obj[nodeName];
+					obj[nodeName] = [];
+					obj[nodeName].push(old);
+				}
+				obj[nodeName].push(xmlToJson(item));
+			}
+		}
+	}
+	return obj;
 };
