@@ -30,15 +30,15 @@ $("#show-books").on("click", function () {
 
 // "Show Movies" button listener
 $("#show-movies").on("click", function () {
-	$("#results-header").text("Movie Recommendations");
-	$("#results-content").empty();
-	for(let i = 0; i < moviesArray.length; i++) {
-		let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "</h6>");
-		$("#results-content").append(titleDiv);
-		let yearDiv = $("<div>" + moviesArray[i].year + "</div>");
-		$("#results-content").append(yearDiv);
-	}
-	$("#results-div").removeClass("hide");
+    $("#results-header").text("Movie Recommendations");
+    $("#results-content").empty();
+    for(let i = 0; i < moviesArray.length; i++) {
+        let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "(" + moviesArray[i].year + ")" + "</h6>");
+        $("#results-content").append(titleDiv);
+        let posterImage = $("<img src ='" + moviesArray[i].image + "' alt='movie poster'>")
+        $("#results-content").append(posterImage);
+    }
+    $("#results-div").removeClass("hide");
 });
 
 // "Show News" button listener
