@@ -36,7 +36,8 @@ $("#show-movies").on("click", function () {
         let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "(" + moviesArray[i].year + ")" + "</h6>");
         $("#results-content").append(titleDiv);
         let posterImage = $("<img src ='" + moviesArray[i].image + "' alt='movie poster'>")
-        $("#results-content").append(posterImage);
+		$("#results-content").append(posterImage);
+		$("#results-content").append($("<div class='divider'></div>"));
     }
     $("#results-div").removeClass("hide");
 });
