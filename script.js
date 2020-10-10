@@ -92,12 +92,15 @@ function getBooks(place) {
         }
         console.log("Books:", booksArray);
 
-        // Add a few reccomendations from books to the books card content
-        for (let i = 0; i < 5; i++) {
+		// Add a few reccomendations from books to the books card content
+		let limit = 5;
+		if (booksArray.length < 5) { limit = booksArray.length; }
+        for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + booksArray[i].title + "</div>");
             $("#book-preview").append(newDiv);
         }
-        // Unhide the "show results" link
+		// Unhide the "show results" link & show how many results there are
+		$("#books-title").text("Books (" + booksArray.length + ")");
         $("#book-action").removeClass("hide");
     });
 }
@@ -123,11 +126,14 @@ function getMovies(place) {
         console.log("Movies:", moviesArray);
     
         // Add a few reccomendations from moviesArray to the movies card content
-        for (let i = 0; i < 5; i++) {
+		let limit = 5;
+		if (moviesArray.length < 5) { limit = moviesArray.length; }
+        for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + moviesArray[i].title + "</div>");
             $("#movie-preview").append(newDiv);
         }       
-        // Unhide the "show results" link
+		// Unhide the "show results" link & show how many results there are
+		$("#movies-title").text("Movies (" + moviesArray.length + ")");
         $("#movie-action").removeClass("hide");
     });
 }
@@ -155,11 +161,14 @@ function getNews(place) {
         console.log("News:", newsArray);
 
         // Add a few reccomendations from newsArray to the news card content
-        for (let i = 0; i < 5; i++) {
+		let limit = 5;
+		if (newsArray.length < 5) { limit = newsArray.length; }
+        for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + newsArray[i].title + "</div>");
             $("#news-preview").append(newDiv);
         }
-        // Unhide the "show results" link
+		// Unhide the "show results" link & show how many results there are
+		$("#news-title").text("News (" + newsArray.length + ")");
         $("#news-action").removeClass("hide");
     });
 }
@@ -193,11 +202,14 @@ function getArt(place) {
         console.log("Art:", artArray);
 
         // Add a few reccomendations from articles to the news card content
-        for (let i = 0; i < 5; i++) {
+		let limit = 5;
+		if (artArray.length < 5) { limit = artArray.length; }
+        for (let i = 0; i < limit; i++) {
             let newDiv = $("<div>- " + artArray[i].title + "</div>");
             $("#art-preview").append(newDiv);
         }
-        // Unhide the "show results" link
+		// Unhide the "show results" link & show how many results there are
+		$("#art-title").text("Art (" + artArray.length + ")");
         $("#art-action").removeClass("hide");
     });
 }
