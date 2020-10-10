@@ -175,7 +175,7 @@ function getNews(place) {
 		$("#news-title").text("News (" + newsArray.length + ")");
         $("#news-action").removeClass("hide");
     });
-
+}
 // Function that accesses the Harvard Art Museums API given a string representing their place search, and builds an array of artwork objects with only the key values we care about
 function getArt(place) {
 	var queryURL = "https://api.harvardartmuseums.org/exhibition?q=" + place + "&apikey=ad869fde-b267-4f1d-bf87-6a7b86478a0c";
