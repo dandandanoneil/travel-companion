@@ -16,10 +16,17 @@
   <body>
 
     <!-- Header -->
-    <nav>
-      <div class="nav-wrapper">
-        <a href="index.html" class="brand-logo center" id="header" style="color:black"></a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
+    <nav class="nav-extended">
+      <div class="nav-wrapper section">
+        <h1 class="center" id="header" style="color:black"></h1>
+        <div class="center-align">
+          <div class="input-field inline">
+            <input id="searchBar" type="text" placeholder="Search for a new city...">
+          </div>
+          <button id="searchBtn">Search</button>
+          <button id="randomBtn">Somewhere Random</button>
+          <button id="locationBtn">Use My Location</button>
+        </div>
       </div>
     </nav>
 
