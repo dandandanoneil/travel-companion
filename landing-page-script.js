@@ -28,8 +28,7 @@ var submitLocation = $("#locationBtn");
 
 submitLocation.on("click", function() {
         console.log('My Location');
-        localStorage.setItem('place', getLocation());
-        //window.location.href = 'results.html';
+        getLocation();
 });
 
 function getLocation() {
@@ -48,9 +47,10 @@ function getLocation() {
         method: "POST"
     }).then (function(results) {
         console.log(results);
-        let place = JSON.stringify(results.results[0].formatted_address);
+        let place = JSON.stringify(results.results[3].formatted_address);
         console.log(place);
-        return place;
+        localStorage.setItem('place', place);
+        window.location.href = 'results.html';
     });
 });
     };
