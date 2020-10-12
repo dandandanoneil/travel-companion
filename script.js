@@ -61,29 +61,42 @@ $('#randomBtn').on('click', function () {
 
 // Use my location button
 $('#locationBtn').on('click', function () {
-	let newPlace =  getLocation();
-	// Store the new place
-	localStorage.setItem('place', newPlace);
-	// Reset all the arrays
-	booksArray = [];
-	moviesArray = [];
-	newsArray = [];
-	artArray = [];
-	// Render the new page
-	$("#header").text("Welcome to " + newPlace);
-	$("#results-div").addClass("hide");
-	getBooks(newPlace);
-	getMovies(newPlace);
-	getNews(newPlace);
-	getArt(newPlace);
-});
+	let mapsAPI = 'AIzaSyDP6Zh-LaIStr2ODLz_C9yj--XdyC4CZ28';
 
-function getLocation() {
-    // Re-use Tricia's function/API call that gets the user's location and converts it to a place name/string
-    // For now, use Philadelphia as the user's location
-    let here = "Philadelphia";
-    return here;    
-}
+	$.ajax({
+        url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + mapsAPI,
+        method: "POST"
+      }).then (function(response) {
+        let lat = JSON.stringify(response.location.lat);
+		let lng = JSON.stringify(response.location.lng);
+        //API call to use lat & long to retrieve place name
+		$.ajax({
+			url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&key=' + mapsAPI,
+			method: "POST"
+		}).then (function(results) {
+			console.log(results);
+			// Get the city name from the exact location results
+			let here = JSON.stringify(results.results[0].address_components[3].long_name);
+			// Remove the quotation marks from around the city name
+			here = here.substr(1, (here.length - 2));
+
+			// Store the new place
+			localStorage.setItem('place', here);
+			// Reset all the arrays
+			booksArray = [];
+			moviesArray = [];
+			newsArray = [];
+			artArray = [];
+			// Render the new page
+			$("#header").text("Welcome to " + here);
+			$("#results-div").addClass("hide");
+			getBooks(here);
+			getMovies(here);
+			getNews(here);
+			getArt(here);
+		});
+	});
+});
 
 function checkInput(userInput) {
     // We're going to accept all user inputs for now until we figure out how to check this
