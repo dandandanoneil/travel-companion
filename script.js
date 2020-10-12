@@ -121,8 +121,11 @@ $("#show-movies").on("click", function () {
     $("#results-header").text("Movie Recommendations");
     $("#results-content").empty();
     for(let i = 0; i < moviesArray.length; i++) {
-        let titleDiv = $("<h6 class='text-bold'>" + moviesArray[i].title + "(" + moviesArray[i].year + ")" + "</h6>");
+        let titleDiv = $("<a class='text-bold'>" + moviesArray[i].title + "(" + moviesArray[i].year + ")" + "</a>");
+		titleDiv.attr("href", moviesArray[i].url);
+		titleDiv.attr("target", "_blank");
         $("#results-content").append(titleDiv);
+        $("#results-content").append($("<br>"));
         let posterImage = $("<img src ='" + moviesArray[i].image + "' alt='movie poster'>")
 		$("#results-content").append(posterImage);
 		$("#results-content").append($("<div class='divider'></div>"));
@@ -137,6 +140,7 @@ $("#show-news").on("click", function () {
 	for(let i = 0; i < newsArray.length; i++) {
 		let titleDiv = $("<a class='text-bold'>" + newsArray[i].title + "</a>");
 		titleDiv.attr("href", newsArray[i].url)
+		titleDiv.attr("target", "_blank");
 		$("#results-content").append(titleDiv);
 		if(newsArray[i].by && newsArray[i].by != "By") {
 			let byDiv = $("<div>by " + newsArray[i].by + "</div>");
@@ -156,6 +160,7 @@ $("#show-art").on("click", function () {
 	for(let i = 0; i < artArray.length; i++) {
 		let titleDiv = $("<a class='text-bold'>" + artArray[i].title + "</a>");
 		titleDiv.attr("href", artArray[i].url);
+		titleDiv.attr("target", "_blank");
 		$("#results-content").append(titleDiv);
 		let nameDiv = $("<div>Venue: " + artArray[i].venues + "</div>");
 		$("#results-content").append(nameDiv);
@@ -221,7 +226,8 @@ function getMovies(place) {
             let newMovie = {
                 title: results[i].Title,  
                 image: results[i].Poster, 
-                year: results[i].Year
+				year: results[i].Year,
+				url: "https://www.imdb.com/title/" + results[i].imdbID
             };
             moviesArray.push(newMovie);
         }
