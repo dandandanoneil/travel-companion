@@ -24,6 +24,7 @@ $('#searchBtn').on('click', function () {
     if(checkInput(newPlace)) {
 		// Store the new place
 		localStorage.setItem('place', newPlace);
+		console.log(newPlace);
 		// Reset all the arrays
 		booksArray = [];
 		moviesArray = [];
@@ -45,6 +46,7 @@ $('#randomBtn').on('click', function () {
     let newPlace = places[index];
 	// Store the new place
 	localStorage.setItem('place', newPlace);
+	console.log(newPlace);
 	// Reset all the arrays
 	booksArray = [];
 	moviesArray = [];
@@ -82,6 +84,7 @@ $('#locationBtn').on('click', function () {
 
 			// Store the new place
 			localStorage.setItem('place', here);
+			console.log(here);
 			// Reset all the arrays
 			booksArray = [];
 			moviesArray = [];
