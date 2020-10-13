@@ -118,8 +118,10 @@ $("#show-books").on("click", function () {
 		$("#results-content").append(titleDiv);
 		let byDiv = $("<div>by " + booksArray[i].by + "</div>");
 		$("#results-content").append(byDiv);
-		let yearDiv = $("<div>Published: " + booksArray[i].year + "</div>");
-		$("#results-content").append(yearDiv);
+        if (booksArray[i].year) {
+            let yearDiv = $("<div>Published: " + booksArray[i].year + "</div>");
+            $("#results-content").append(yearDiv);
+        }
 		if (booksArray[i].image != "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
 			let bookImage = $("<img src ='" + booksArray[i].image + "' alt='book image'>")
 			$("#results-content").append(bookImage);
@@ -200,11 +202,9 @@ function getBooks(place) {
                 title: results[i].best_book.title["#text"],  
                 by: results[i].best_book.author.name["#text"], 
                 image: results[i].best_book.image_url["#text"], 
-
 				year: results[i].original_publication_year["#text"], 
 				url: "https://www.goodreads.com/book/show/" + results[i].best_book.id["#text"]
 			};
-			if (!newBook.year) { newBook.year = "unknown"; }
 
             booksArray.push(newBook);
         }
