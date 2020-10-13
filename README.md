@@ -10,16 +10,22 @@ The application is designed and styled using the Materialize CSS Framework, and 
 
 ## Screenshots
 Landing Page:
-![Landing Page screenshot](assets/landing-page.png)
+![Landing Page screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/landing-page.png)
 
 Results Page:
-![Results Page screenshot](assets/results-page.png)
+![Results Page screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/results-page.png)
 
 Book Results:
-![Book Results screenshot](assets/book-results.png)
+![Book Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/book-results.png)
 
 Movie Results:
-![Movie Results screenshot](assets/movie-results.png)
+![Movie Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/movie-results.png)
+
+Art Results:
+![Art Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/art-results.png)
+
+News Results:
+![News Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/news-results.png)
 
   
 > Written with [StackEdit](https://stackedit.io/).
