@@ -22,10 +22,10 @@ Movie Results:
 ![Movie Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/movie-results.png)
 
 Art Results:
-![Art Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/art-results.png)
+![Art Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/art-results.PNG)
 
 News Results:
-![News Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/news-results.png)
+![News Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/news-results.PNG)
 
   
 > Written with [StackEdit](https://stackedit.io/).
