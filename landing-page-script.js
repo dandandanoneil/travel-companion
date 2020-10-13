@@ -47,7 +47,7 @@ function getLocation() {
         method: "POST"
     }).then (function(results) {
         console.log(results);
-        let place = JSON.stringify(results.results[3].formatted_address);
+        let place = JSON.stringify(results.results[5].formatted_address);
         console.log(place);
         localStorage.setItem('place', place);
         window.location.href = 'results.html';
