@@ -17,8 +17,8 @@ h3 {
 
 body {
   font-family: 'Courier New', Courier, monospace;
-  background-image: url('https://cdn1.vectorstock.com/i/1000x1000/75/90/vintage-travel-visa-passport-stamps-vector-11097590.jpg');
-  background-repeat: no-repeat;
+  background-image: url('Assets/background-image.jpg');
+  background-repeat: repeat-y;
   background-size: 100%;
 }
 
