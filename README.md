@@ -28,4 +28,7 @@ News Results:
 ![News Results screenshot](https://github.com/dandandanoneil/travel-companion/blob/main/Assets/news-results.PNG)
 
   
+## License
+[MIT License](http://opensource.org/licenses/mit-license.php)
+
 > Written with [StackEdit](https://stackedit.io/).
